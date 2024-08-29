@@ -1,0 +1,22 @@
+{
+  "blogs": [
+    {
+      "id": "a660",
+      "title": "hi",
+      "body": "hi",
+      "author": "yoshi"
+    },
+    {
+      "id": "2feb",
+      "title": "blog 1",
+      "body": "first blog by mario",
+      "author": "mario"
+    },
+    {
+      "id": "b60f",
+      "title": "FInallyyyy",
+      "body": "Done with the tutorial.. Yyayyy",
+      "author": "yoshi"
+    }
+  ]
+}
