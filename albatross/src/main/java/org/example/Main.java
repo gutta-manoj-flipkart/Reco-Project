@@ -4,6 +4,8 @@ import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import jakarta.servlet.FilterRegistration;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.example.API.Ping;
@@ -18,6 +20,12 @@ public class Main extends Application<AppConfiguration>
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
+        bootstrap.addBundle(new SwaggerBundle<AppConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(AppConfiguration configuration) {
+                return configuration.swaggerBundleConfiguration;
+            }
+        });
         super.initialize(bootstrap);
 
     }

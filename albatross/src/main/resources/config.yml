@@ -3,3 +3,8 @@ server:
   applicationConnectors:
       - type: http
         port: 8080
+
+prop1: value1
+prop2: value2
+swagger:
+  resourcePackage:

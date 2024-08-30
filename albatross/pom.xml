@@ -30,6 +30,14 @@
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.smoketurner/dropwizard-swagger -->
+        <dependency>
+            <groupId>com.smoketurner</groupId>
+            <artifactId>dropwizard-swagger</artifactId>
+            <version>4.0.5-1</version>
+        </dependency>
+
     </dependencies>
+
 
 </project>
