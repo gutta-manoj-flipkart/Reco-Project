@@ -10,7 +10,7 @@
   padding: 20px;
   display: flex;
   align-items: center;
-  max-width: 600px;
+  max-width: 1728px;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
@@ -100,6 +100,72 @@
 }
 
 .blog-details button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+/* deploy-info page*/
+.deploy-info {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.deploy-info label {
+  text-align: left;
+  display: block;
+}
+.deploy-info h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+.deploy-info input, .deploy-info textarea, .deploy-info select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+.deploy-info button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+/*config-info page*/
+.config-info {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.config-info label {
+  text-align: left;
+  display: block;
+}
+.config-info h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+.config-info input, .config-info textarea, .config-info select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+.config-info button {
   background: #f1356d;
   color: #fff;
   border: 0;
