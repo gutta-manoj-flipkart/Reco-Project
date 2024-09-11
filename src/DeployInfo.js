@@ -11,16 +11,16 @@ const DeployInfo = () => {
     const handleSearch = (e) =>{
         e.preventDefault(); 
         const data = {repo,fromDateTime,toDateTime};
-        // setIsPending(true);
-        // fetch('http://localhost:8080/deployments',{
-        //     method:"POST",
-        //     headers:{ "Content-type" : "application/json" },
-        //     body: JSON.stringify(data)
-        // }).then(()=> {
-        //     console.log('new blog added')
-        //     setIsPending(false);
-        console.log("Submitted");
-        navigate("/deployments", { replace: true });
+        setIsPending(true);
+        fetch('http://localhost:8080/deployments',{
+            method:"POST",
+            headers:{ "Content-type" : "application/json" },
+            body: JSON.stringify(data)
+        }).then(()=> {
+            console.log("Submitted");
+            setIsPending(false);
+            navigate("/deployments", { replace: true });
+        });
     };
 
     return ( 
@@ -55,6 +55,7 @@ const DeployInfo = () => {
 
                 {!isPending && <button>Search</button>}
                 {isPending && <button disabled>Loading data...</button>}
+                
     
             </form>
         </div>

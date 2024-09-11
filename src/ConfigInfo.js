@@ -9,18 +9,20 @@ const ConfigInfo = () => {
     const navigate = useNavigate();
 
     const handleSearch = (e) =>{
-        e.preventDefault(); 
-        const data = {dc,fromDateTime,toDateTime};
-        // setIsPending(true);
-        // fetch('http://localhost:8080/configs',{
-        //     method:"POST",
-        //     headers:{ "Content-type" : "application/json" },
-        //     body: JSON.stringify(data)
-        // }).then(()=> {
-        //     console.log('new blog added')
-        //     setIsPending(false);
-        console.log("Submitted");
+        e.preventDefault();
+        const fromDateTime_UNIX = ((new Date(fromDateTime)).getTime());
+        const toDateTime_UNIX = ((new Date(toDateTime)).getTime());
+        const data = {dc,fromDateTime_UNIX,toDateTime_UNIX};
+        setIsPending(true);
+        fetch('http://localhost:8080/configs',{
+            method:"POST",
+            headers:{ "Content-type" : "application/json" },
+            body: JSON.stringify(data)
+        }).then(()=> {
+            console.log("Submitted");
+            setIsPending(false);
         navigate("/configs", { replace: true });
+        });
     };
 
     return ( 

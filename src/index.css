@@ -173,3 +173,20 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* /form setup/
+.horizontal-form {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.horizontal-form label {
+  margin-right: 5px;
+}
+
+.horizontal-form input, 
+.horizontal-form select, 
+.horizontal-form button {
+  margin-right: 10px;
+} */
