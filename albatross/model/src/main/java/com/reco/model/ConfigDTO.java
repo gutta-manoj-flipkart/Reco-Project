@@ -1,4 +1,4 @@
-package org.example.models;
+package com.reco.model;
 
 
 public class ConfigDTO {
@@ -30,3 +30,4 @@ public class ConfigDTO {
         return "dc=" + dc + ", fromDateTime=" + fromDateTime_UNIX + ", toDateTime=" + toDateTime_UNIX;
     }
 }
+

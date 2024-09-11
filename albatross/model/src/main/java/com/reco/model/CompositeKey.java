@@ -1,25 +1,25 @@
-package org.example.models;
+package com.reco.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class CompositeKey implements Serializable {
-        private String name;
+    private String name;
 
-        private Timestamp timestamp;
+    private Timestamp timestamp;
 
-        private String zones;
+    private String zones;
 
-        // default constructor
+    // default constructor
     public CompositeKey()
     {
 
     }
-        public CompositeKey(String name, Timestamp timestamp, String zones) {
-            this.name = name;
-            this.timestamp = timestamp;
-            this.zones = zones;
-        }
+    public CompositeKey(String name, Timestamp timestamp, String zones) {
+        this.name = name;
+        this.timestamp = timestamp;
+        this.zones = zones;
+    }
 
     public Timestamp getTimestamp() {
         return timestamp;
@@ -47,3 +47,4 @@ public class CompositeKey implements Serializable {
 
     // equals() and hashCode()
 }
+
