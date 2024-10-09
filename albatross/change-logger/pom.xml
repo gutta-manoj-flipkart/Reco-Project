@@ -9,12 +9,30 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dao</artifactId>
+    <artifactId>change-logger</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.flipkart.reco</groupId>
+            <artifactId>dao</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.flipkart.kloud.config</groupId>
+            <artifactId>client-java</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>
