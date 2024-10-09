@@ -1,8 +1,11 @@
 package com.flipkart.reco.model;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Getter
 public class CompositeKey implements Serializable {
     private String name;
 
@@ -20,30 +23,4 @@ public class CompositeKey implements Serializable {
         this.timestamp = timestamp;
         this.zones = zones;
     }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getZones() {
-        return zones;
-    }
-
-    public void setZones(String zones) {
-        this.zones = zones;
-    }
-
-    // equals() and hashCode()
 }

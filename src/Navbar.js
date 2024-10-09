@@ -7,6 +7,7 @@ const Navbar = () => {
                 <Link to="/">Home</Link>
                 <Link to="/deployments">Deployments</Link>
                 <Link to="/configs">Config buckets</Link>
+                <Link to="/client">Register Client</Link>
             </div>
         </nav>
      );

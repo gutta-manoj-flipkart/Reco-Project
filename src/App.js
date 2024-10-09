@@ -8,6 +8,7 @@ import NotFound from './NotFound';
 import Backend from './Backend';
 import ConfigInfo from './ConfigInfo';
 import DeployInfo from './DeployInfo';
+import ClientRegisterForm from './Jsoniput';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/" element={<Home />}></Route>
       <Route path="/deployments" element={<DeployInfo />}></Route>
       <Route path="/configs" element={<ConfigInfo />}></Route>
+      <Route path="/client" element={<ClientRegisterForm />}></Route>
       <Route path="/create" element={<Create/>}></Route>
       <Route path="/backend" element={<Backend/>}></Route>
       <Route path="/blogs/:id" element={<BlogDetails />} />

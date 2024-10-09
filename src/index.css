@@ -174,6 +174,40 @@
   cursor: pointer;
 }
 
+
+/*json-input page*/
+.json-input {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.json-input label {
+  text-align: left;
+  display: block;
+}
+.json-input h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+.json-input input, .config-info textarea, .config-info select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+.json-input button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
 /* /form setup/
 .horizontal-form {
   display: flex;

@@ -14,12 +14,15 @@ const ConfigInfo = () => {
         const toDateTime_UNIX = ((new Date(toDateTime)).getTime());
         const data = {dc,fromDateTime_UNIX,toDateTime_UNIX};
         setIsPending(true);
-        fetch('http://localhost:8080/configs',{
+        fetch('http://localhost:8080/getdetails',{
             method:"POST",
             headers:{ "Content-type" : "application/json" },
             body: JSON.stringify(data)
+        }).then(response => response.json())  // Convert response to JSON
+        .then(data => {
+          console.log('Response body:', data);  // Log response body to console
         }).then(()=> {
-            console.log("Submitted");
+            console.log("successful");
             setIsPending(false);
         navigate("/configs", { replace: true });
         });
