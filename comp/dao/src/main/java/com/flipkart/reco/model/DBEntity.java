@@ -1,9 +1,9 @@
 package com.flipkart.reco.model;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
+
 
 @Entity
 @IdClass(CompositeKey.class)
@@ -101,7 +101,6 @@ public class DBEntity implements Serializable {
     public String getName() {
         return name;
     }
-
     @Override
     public String toString() {
         return "name :" + name + " version: " + version + " type: "+ type + " author: " + author + " msg: " + msg + " timestamp: " + timestamp + " changeData: " + changeData + " zones: " + zones;

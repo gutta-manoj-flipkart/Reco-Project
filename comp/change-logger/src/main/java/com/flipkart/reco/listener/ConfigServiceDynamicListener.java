@@ -20,15 +20,30 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ConfigServiceDynamicListener {
     public ConfigServiceDynamicListener(String configBucketName,ConfigUpdateRepository configUpdateRepository) throws
             NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        ConfigUpdateDao configUpdateDAO = new ConfigUpdateDao(configUpdateRepository);
         try {
             DynamicBucket bucket = ConfigServiceUtil.getInstance()
                     .getConfigServiceDynamicBucket(configBucketName);
+            long delayBetweenRetry = 200;
+            if (bucket == null) {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(delayBetweenRetry);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Thread interrupted while waiting for retry delay.");
+                }
+                bucket = ConfigServiceUtil.getInstance()
+                        .getConfigServiceDynamicBucket(configBucketName);
+            }
+
+            if (bucket == null) {
+                System.out.println("This is still ain't working for " + configBucketName);
+            }
             String url = "http://10.83.47.156/v1/history/";
             Client client = ClientBuilder.newClient();
             WebTarget webTarget = client.target(url).queryParam("limit", "1");
@@ -40,7 +55,12 @@ public class ConfigServiceDynamicListener {
             JSONArray arr = (JSONArray) parser.parse(json);
             JSONObject obj = (JSONObject) arr.get(0);
             int version = ((Long) obj.get("version")).intValue();
-            int db_version = configUpdateRepository.findHighestVersionByName(configBucketName);
+            int db_version;
+            Integer v = configUpdateRepository.findHighestVersionByName(configBucketName);
+            if(v == null)
+                db_version = 0;
+            else
+                db_version = v;
             db_version++;
             while(db_version != version+1)
             {
@@ -94,7 +114,7 @@ public class ConfigServiceDynamicListener {
         catch (ParseException e) {
             throw new RuntimeException(e);
         }
-    }
+  }
 }
 
 

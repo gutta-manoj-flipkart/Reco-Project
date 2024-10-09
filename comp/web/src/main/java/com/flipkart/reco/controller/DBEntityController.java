@@ -7,19 +7,13 @@ import com.flipkart.reco.listener.ConfigServiceDynamicListener;
 import com.flipkart.reco.repository.ConfigUpdateRepository;
 import com.flipkart.reco.service.ConfigUpdateDao;
 import com.flipkart.reco.model.DBEntity;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,6 +22,7 @@ import java.util.List;
 public class DBEntityController {
     @Autowired
     private ConfigUpdateRepository configUpdateRepository;
+    List<ConfigServiceDynamicListener> listeners = new ArrayList<>();
 
     @PostMapping("/getdetails")
     public ResponseEntity<Object> ping(@RequestBody String json) throws JsonProcessingException {
@@ -41,25 +36,14 @@ public class DBEntityController {
     public void client(@RequestBody String json) throws JsonProcessingException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(json);
-        ConfigServiceDynamicListener configServiceDynamicListener = new ConfigServiceDynamicListener(node.get("bucket").asText(),configUpdateRepository);
-    }
-    @GetMapping("/populate")
-    public ResponseEntity<?> populateDB() {
-        String url
-                = "http://10.83.47.156/v1/history/";
-
-        Client client = ClientBuilder.newClient();
-        WebTarget webTarget = client.target(url);
-        WebTarget target = webTarget.path("reco.griffin.contentProvider.config").path(String.valueOf(2));
-        Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.get();
-        String json = response.readEntity(String.class);
-        ConfigUpdateDao configUpdateDao = new ConfigUpdateDao(configUpdateRepository);
-        try {
-            configUpdateDao.storetoDB("reco.griffin.contentProvider.config",json);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        JsonNode bucketsNode = node.get("buckets");
+        if (bucketsNode != null && bucketsNode.isArray()) {
+            for (JsonNode bucketNode : bucketsNode) {
+                String bucketName = bucketNode.asText();
+                ConfigServiceDynamicListener configServiceDynamicListener = new ConfigServiceDynamicListener(bucketName, configUpdateRepository);
+                System.out.println("Listener setup for bucket "+ bucketName);
+                listeners.add(configServiceDynamicListener);
+            }
         }
-        return ResponseEntity.ok("Successful");
     }
 }

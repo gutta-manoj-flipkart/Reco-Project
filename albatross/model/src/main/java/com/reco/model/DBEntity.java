@@ -21,8 +21,8 @@ public class DBEntity implements Serializable {
     @Column(name = "zones")
     private String zones;
 
-    @Column(name = "version", nullable = false, length = 50)
-    private String version;
+    @Column(name = "version")
+    private int version;
 
     @Column(name = "type", nullable = false, length = 20)
     private String type;
@@ -44,11 +44,11 @@ public class DBEntity implements Serializable {
         this.type = type;
     }
 
-    public String getVersion() {
+    public int getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 
