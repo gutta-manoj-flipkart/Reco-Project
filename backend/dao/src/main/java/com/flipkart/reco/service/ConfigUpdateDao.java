@@ -55,7 +55,7 @@ public class ConfigUpdateDao {
                 db[i].setMsg(obj.get("msg").toString());
                 db[i].setTimestamp(new Timestamp((long)obj.get("ts")));
                 db[i].setChangeData("before: " + obj.get("before").toString() + " after : " + obj.get("after").toString());
-                db[i].setZones("ALL");
+                db[i].setZones(zone);
                 configUpdateRepository.save(db[i]);
             }
         }
