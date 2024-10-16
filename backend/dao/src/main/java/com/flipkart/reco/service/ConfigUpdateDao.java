@@ -23,7 +23,10 @@ public class ConfigUpdateDao {
     public List<DBEntity> getEntriesBetweenTimestamps(Timestamp from, Timestamp to) {
         return configUpdateRepository.findByTimestampBetween(from, to);
     }
-    public void storetoDB(String name, String json) throws ParseException {
+    public Integer findHighestVersionByName(String name){
+        return configUpdateRepository.findHighestVersionByName(name);
+    }
+    public void storetoDB(String name, String zone, String json) throws ParseException {
         JSONParser parser = new JSONParser();
         Object parsedJson = parser.parse(json);
         if (parsedJson instanceof JSONObject) {
@@ -36,7 +39,7 @@ public class ConfigUpdateDao {
             db.setMsg(obj.get("msg").toString());
             db.setTimestamp(new Timestamp((long) obj.get("ts"))); // Convert JSON timestamp to SQL timestamp
             db.setChangeData("before: " + obj.get("before").toString() + " after: " + obj.get("after").toString());
-            db.setZones("ALL");
+            db.setZones(zone);
             configUpdateRepository.save(db);
 
         } else if (parsedJson instanceof JSONArray) {
