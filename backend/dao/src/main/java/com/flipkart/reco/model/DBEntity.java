@@ -33,8 +33,9 @@ public class DBEntity implements Serializable {
     @Column(name = "msg", columnDefinition = "TEXT")
     private String msg;
 
-    @Column(name = "change_data", columnDefinition = "TEXT")
-    private String changeData; //Enum -> GCP, CH, HYD, ALL
+    @Lob
+    @Column(name = "change_data")
+    private byte[] changeData; //Enum -> GCP, CH, HYD, ALL
 
     public String getType() {
         return type;
@@ -52,7 +53,7 @@ public class DBEntity implements Serializable {
         this.version = version;
     }
 
-    public String getChangeData() {
+    public byte[] getChangeData() {
         return changeData;
     }
 
@@ -64,7 +65,7 @@ public class DBEntity implements Serializable {
         this.zones = zones;
     }
 
-    public void setChangeData(String changeData) {
+    public void setChangeData(byte[] changeData) {
         this.changeData = changeData;
     }
 

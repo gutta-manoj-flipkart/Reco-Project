@@ -1,12 +1,15 @@
 package com.flipkart.reco.service;
 
 import com.flipkart.reco.model.DBEntity;
+import com.flipkart.reco.model.DBEntityDTO;
 import com.flipkart.reco.repository.ConfigUpdateRepository;
+import org.hibernate.query.NativeQuery;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigUpdateDao {
@@ -20,8 +23,22 @@ public class ConfigUpdateDao {
     public void addUpdate(DBEntity dbEntity) {
         configUpdateRepository.save(dbEntity);
     }
-    public List<DBEntity> getEntriesBetweenTimestamps(Timestamp from, Timestamp to) {
-        return configUpdateRepository.findByTimestampBetween(from, to);
+    public List<DBEntityDTO> getEntriesBetweenTimestamps(Timestamp from, Timestamp to) {
+        List<DBEntity> data=configUpdateRepository.findByTimestampBetween(from, to);
+        List<DBEntityDTO> result=new ArrayList<>();
+        for(DBEntity dbEntity:data){
+            DBEntityDTO db=new DBEntityDTO();
+            db.setName(dbEntity.getName());
+            db.setVersion(dbEntity.getVersion()); // Cast to Long and then convert to int
+            db.setType(dbEntity.getType());
+            db.setAuthor(dbEntity.getAuthor());
+            db.setMsg(dbEntity.getMsg());
+            db.setTimestamp(dbEntity.getTimestamp()); // Convert JSON timestamp to SQL timestamp
+            db.setChangeData(new String(dbEntity.getChangeData()));
+            db.setZones(dbEntity.getZones());
+            result.add(db);
+        }
+        return result;
     }
     public Integer findHighestVersionByName(String name){
         return configUpdateRepository.findHighestVersionByName(name);
@@ -38,7 +55,7 @@ public class ConfigUpdateDao {
             db.setAuthor(obj.get("author").toString());
             db.setMsg(obj.get("msg").toString());
             db.setTimestamp(new Timestamp((long) obj.get("ts"))); // Convert JSON timestamp to SQL timestamp
-            db.setChangeData("before: " + obj.get("before").toString() + " after: " + obj.get("after").toString());
+            db.setChangeData(("before: " + obj.get("before").toString() + " after: " + obj.get("after").toString()).getBytes());
             db.setZones(zone);
             configUpdateRepository.save(db);
 
@@ -54,7 +71,7 @@ public class ConfigUpdateDao {
                 db[i].setAuthor(obj.get("author").toString());
                 db[i].setMsg(obj.get("msg").toString());
                 db[i].setTimestamp(new Timestamp((long)obj.get("ts")));
-                db[i].setChangeData("before: " + obj.get("before").toString() + " after : " + obj.get("after").toString());
+                db[i].setChangeData(("before: " + obj.get("before").toString() + " after : " + obj.get("after").toString()).getBytes());
                 db[i].setZones(zone);
                 configUpdateRepository.save(db[i]);
             }

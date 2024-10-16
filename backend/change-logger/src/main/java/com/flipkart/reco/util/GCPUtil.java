@@ -24,7 +24,6 @@ public class GCPUtil {
                 r -> new Thread(r, "ConfigWatchThreadGCP"));
         dynamicBucketCache = new DynamicBucketCache();
         InstanceMetaData instanceMetaData = InstanceMetaData.singleton();
-        //ConfigServiceEndpoint configServiceEndpoint = EndpointProvider.singleton().endpoint();
         Map<String, Map<String, ConfigServiceEndpoint>> endpoints = EndpointProvider.ZONE_VPC_TO_ENDPOINT_MAP;
         ConfigServiceEndpoint configServiceEndpoint = endpoints.get("asia-south1").get("default");
         httpClient = new HttpClientBuilder().host(configServiceEndpoint.host)

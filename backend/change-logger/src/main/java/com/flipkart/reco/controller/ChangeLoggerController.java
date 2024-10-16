@@ -38,7 +38,6 @@ public class ChangeLoggerController {
     Map<String,ConfigServiceDynamicListener> listeners = new HashMap<>();
     @GetMapping("/test")
     public void test() throws ParseException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-        System.out.println("test call a function");
         MetaDataDao metaDataDao = new MetaDataDao(metaDataRepository);
         List<AppEntity> data = metaDataDao.findByZone("gcp");
         for (AppEntity appEntity : data) {
