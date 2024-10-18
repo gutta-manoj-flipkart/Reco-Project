@@ -12,15 +12,12 @@ import lombok.Setter;
 public class AppEntity {
     @Column(name="app_id")
     private String appId;
-
     @Column(name = "system_type")
     private String system;
-
     @Id
     private String name;
-
+    @Column(name = "zone")
     private String zone;
-
     public AppEntity() {}
     public AppEntity(String appId, String system, String name, String zone) {
         this.appId = appId;

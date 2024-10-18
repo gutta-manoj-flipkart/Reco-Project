@@ -43,7 +43,12 @@ public class DBEntityController {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(json);
         ConfigUpdateDao configUpdateDao = new ConfigUpdateDao(configUpdateRepository);
-        List<DBEntityDTO> body = configUpdateDao.getEntriesBetweenTimestamps(new Timestamp(node.get("fromDateTime_UNIX").asLong()),new Timestamp(node.get("toDateTime_UNIX").asLong()));
+        String zone = node.get("dc").asText().toLowerCase();
+        List<DBEntityDTO> body;
+        if(zone.equalsIgnoreCase("all"))
+            body = configUpdateDao.getEntriesBetweenTimestamps(new Timestamp(node.get("fromDateTime_UNIX").asLong()),new Timestamp(node.get("toDateTime_UNIX").asLong()));
+        else
+            body = configUpdateDao.getEntriesBetweenTimestampsAndZones(new Timestamp(node.get("fromDateTime_UNIX").asLong()),new Timestamp(node.get("toDateTime_UNIX").asLong()),zone);
         return ResponseEntity.ok(body);
     }
     @PostMapping("/client")

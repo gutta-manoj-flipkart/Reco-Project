@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const ConfigInfo = () => {
     const[isPending,setIsPending] = useState(false);
-    const[dc,setDc] = useState('dc1');
+    const[dc,setDc] = useState('GCP');
     const[fromDateTime,setFromDateTime] = useState(undefined); //check what can be put instead of undefined
     const[toDateTime,setToDateTime] = useState(undefined); //check what can be put instead of undefined
     const navigate = useNavigate();
@@ -37,9 +37,10 @@ const ConfigInfo = () => {
                 <select
                 value={dc}
                 onChange={(e)=> setDc(e.target.value)}>
-                    <option value="dc1">dc1</option>
-                    <option value="dc2">dc2</option>
-                    <option value="dc3">dc3</option>
+                    <option value="GCP">GCP</option>
+                    <option value="CH">CH</option>
+                    <option value="HYD">HYD</option>
+                    <option value="ALL">ALL</option>
                 </select>
 
                 <label>From Date and time</label>

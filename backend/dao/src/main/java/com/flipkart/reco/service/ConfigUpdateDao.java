@@ -25,23 +25,14 @@ public class ConfigUpdateDao {
     }
     public List<DBEntityDTO> getEntriesBetweenTimestamps(Timestamp from, Timestamp to) {
         List<DBEntity> data=configUpdateRepository.findByTimestampBetween(from, to);
-        List<DBEntityDTO> result=new ArrayList<>();
-        for(DBEntity dbEntity:data){
-            DBEntityDTO db=new DBEntityDTO();
-            db.setName(dbEntity.getName());
-            db.setVersion(dbEntity.getVersion()); // Cast to Long and then convert to int
-            db.setType(dbEntity.getType());
-            db.setAuthor(dbEntity.getAuthor());
-            db.setMsg(dbEntity.getMsg());
-            db.setTimestamp(dbEntity.getTimestamp()); // Convert JSON timestamp to SQL timestamp
-            db.setChangeData(new String(dbEntity.getChangeData()));
-            db.setZones(dbEntity.getZones());
-            result.add(db);
-        }
-        return result;
+        return DBtoDTO(data);
     }
     public Integer findHighestVersionByName(String name){
         return configUpdateRepository.findHighestVersionByName(name);
+    }
+    public List<DBEntityDTO> getEntriesBetweenTimestampsAndZones(Timestamp from, Timestamp to,String zone){
+        List<DBEntity> data=configUpdateRepository.findByTimestampBetweenAndZones(from, to, zone);
+        return DBtoDTO(data);
     }
     public void storetoDB(String name, String zone, String json) throws ParseException {
         JSONParser parser = new JSONParser();
@@ -76,5 +67,22 @@ public class ConfigUpdateDao {
                 configUpdateRepository.save(db[i]);
             }
         }
+    }
+
+    private List<DBEntityDTO> DBtoDTO(List<DBEntity> data) {
+        List<DBEntityDTO> result=new ArrayList<>();
+        for(DBEntity dbEntity:data){
+            DBEntityDTO db=new DBEntityDTO();
+            db.setName(dbEntity.getName());
+            db.setVersion(dbEntity.getVersion()); // Cast to Long and then convert to int
+            db.setType(dbEntity.getType());
+            db.setAuthor(dbEntity.getAuthor());
+            db.setMsg(dbEntity.getMsg());
+            db.setTimestamp(dbEntity.getTimestamp()); // Convert JSON timestamp to SQL timestamp
+            db.setChangeData(new String(dbEntity.getChangeData()));
+            db.setZones(dbEntity.getZones());
+            result.add(db);
+        }
+        return result;
     }
 }

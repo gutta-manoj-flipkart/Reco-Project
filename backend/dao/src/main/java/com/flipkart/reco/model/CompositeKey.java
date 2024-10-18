@@ -13,11 +13,7 @@ public class CompositeKey implements Serializable {
 
     private String zones;
 
-    // default constructor
-    public CompositeKey()
-    {
-
-    }
+    public CompositeKey() {}
     public CompositeKey(String name, Timestamp timestamp, String zones) {
         this.name = name;
         this.timestamp = timestamp;

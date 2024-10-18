@@ -13,6 +13,9 @@ import java.util.List;
 @Repository
 public interface ConfigUpdateRepository extends JpaRepository<DBEntity, CompositeKey> {
     List<DBEntity> findByTimestampBetween(Timestamp from, Timestamp to);
+
+    List<DBEntity> findByTimestampBetweenAndZones(Timestamp from, Timestamp to, String Zone);
+
     @Query("SELECT MAX(e.version) FROM DBEntity e WHERE e.name = :name")
     Integer findHighestVersionByName(@Param("name") String name);
 }

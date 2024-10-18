@@ -14,17 +14,16 @@ public class GCPUtil {
     private final ExecutorService executorService;
     private final DynamicBucketCache dynamicBucketCache;
     private final HttpClient httpClient;
-
     @Getter
     static GCPUtil instance = new GCPUtil();
-
+    @Getter
+    Map<String, Map<String, ConfigServiceEndpoint>> endpoints;
     private GCPUtil() {
-
         executorService = Executors.newFixedThreadPool(20,
                 r -> new Thread(r, "ConfigWatchThreadGCP"));
         dynamicBucketCache = new DynamicBucketCache();
         InstanceMetaData instanceMetaData = InstanceMetaData.singleton();
-        Map<String, Map<String, ConfigServiceEndpoint>> endpoints = EndpointProvider.ZONE_VPC_TO_ENDPOINT_MAP;
+        endpoints = EndpointProvider.ZONE_VPC_TO_ENDPOINT_MAP;
         ConfigServiceEndpoint configServiceEndpoint = endpoints.get("asia-south1").get("default");
         httpClient = new HttpClientBuilder().host(configServiceEndpoint.host)
                 .port(configServiceEndpoint.port).apiVersion(configServiceEndpoint.apiVersion)
