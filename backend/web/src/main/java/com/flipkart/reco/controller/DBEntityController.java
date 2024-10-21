@@ -1,25 +1,17 @@
 package com.flipkart.reco.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flipkart.reco.listener.ConfigServiceDynamicListener;
-import com.flipkart.reco.model.AppData;
-import com.flipkart.reco.model.AppEntity;
-import com.flipkart.reco.model.DBEntityDTO;
+import com.flipkart.reco.model.*;
 import com.flipkart.reco.repository.ConfigUpdateRepository;
 import com.flipkart.reco.repository.MetaDataRepository;
 import com.flipkart.reco.service.ConfigUpdateDao;
-import com.flipkart.reco.model.DBEntity;
 import com.flipkart.reco.service.MetaDataDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,16 +31,9 @@ public class DBEntityController {
     }
 
     @PostMapping("/getdetails")
-    public ResponseEntity<Object> ping(@RequestBody String json) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(json);
+    public ResponseEntity<Object> getDetails(@RequestBody ConfigFilterData data) throws JsonProcessingException {
         ConfigUpdateDao configUpdateDao = new ConfigUpdateDao(configUpdateRepository);
-        String zone = node.get("dc").asText().toLowerCase();
-        List<DBEntityDTO> body;
-        if(zone.equalsIgnoreCase("all"))
-            body = configUpdateDao.getEntriesBetweenTimestamps(new Timestamp(node.get("fromDateTime_UNIX").asLong()),new Timestamp(node.get("toDateTime_UNIX").asLong()));
-        else
-            body = configUpdateDao.getEntriesBetweenTimestampsAndZones(new Timestamp(node.get("fromDateTime_UNIX").asLong()),new Timestamp(node.get("toDateTime_UNIX").asLong()),zone);
+        List<DBEntityDTO> body = configUpdateDao.getEntriesBetweenTimestampsAndZones(new Timestamp(Long.parseLong(data.getFromDateTime_UNIX())),new Timestamp((Long.parseLong(data.getToDateTime_UNIX()))), data.getDc());
         return ResponseEntity.ok(body);
     }
     @PostMapping("/client")

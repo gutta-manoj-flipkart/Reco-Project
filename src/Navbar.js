@@ -4,7 +4,7 @@ const Navbar = () => {
         <nav className="navbar">
             <h1>Albatross</h1>
             <div className="links">
-                <Link to="/">Home</Link>
+                {/* <Link to="/">Home</Link> */}
                 <Link to="/deployments">Deployments</Link>
                 <Link to="/configs">Config buckets</Link>
                 <Link to="/client">Register Client</Link>

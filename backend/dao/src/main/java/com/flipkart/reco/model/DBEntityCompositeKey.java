@@ -6,15 +6,15 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Getter
-public class CompositeKey implements Serializable {
+public class DBEntityCompositeKey implements Serializable {
     private String name;
 
     private Timestamp timestamp;
 
     private String zones;
 
-    public CompositeKey() {}
-    public CompositeKey(String name, Timestamp timestamp, String zones) {
+    public DBEntityCompositeKey() {}
+    public DBEntityCompositeKey(String name, Timestamp timestamp, String zones) {
         this.name = name;
         this.timestamp = timestamp;
         this.zones = zones;

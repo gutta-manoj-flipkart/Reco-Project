@@ -14,7 +14,9 @@ public class MetaDataDao {
         metaDataRepository.save(appEntity);
     }
     public List<AppEntity> findByZone(String zone) {
-        return metaDataRepository.findByZoneContaining(zone);
+        if(zone.equalsIgnoreCase("all"))
+            return metaDataRepository.findAll();
+        else
+            return metaDataRepository.findByZoneContaining(zone);
     }
-    public List<AppEntity> findAll() {return metaDataRepository.findAll();}
 }

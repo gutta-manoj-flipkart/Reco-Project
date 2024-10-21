@@ -19,7 +19,7 @@ const ClientRegisterForm = () => {
               body: JSON.stringify(jsonData)
           }).then(()=> {
               console.log("successful");
-              navigate("/", { replace: true });
+              navigate("/client", { replace: true });
           });
           } catch (error) {
             setErrorMessage("Invalid JSON format.");

@@ -10,17 +10,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Slf4j
-public class GCPUtil {
+public class ConfigListenerUtil {
     private final ExecutorService executorService;
     private final DynamicBucketCache dynamicBucketCache;
     private final HttpClient httpClient;
     @Getter
-    static GCPUtil instance = new GCPUtil();
+    static ConfigListenerUtil instance = new ConfigListenerUtil();
     @Getter
     Map<String, Map<String, ConfigServiceEndpoint>> endpoints;
-    private GCPUtil() {
+    private ConfigListenerUtil() {
         executorService = Executors.newFixedThreadPool(20,
-                r -> new Thread(r, "ConfigWatchThreadGCP"));
+                r -> new Thread(r, "ConfigWatchThread"));
         dynamicBucketCache = new DynamicBucketCache();
         InstanceMetaData instanceMetaData = InstanceMetaData.singleton();
         endpoints = EndpointProvider.ZONE_VPC_TO_ENDPOINT_MAP;

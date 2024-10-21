@@ -1,6 +1,6 @@
 package com.flipkart.reco.repository;
 
-import com.flipkart.reco.model.CompositeKey;
+import com.flipkart.reco.model.DBEntityCompositeKey;
 import com.flipkart.reco.model.DBEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
-public interface ConfigUpdateRepository extends JpaRepository<DBEntity, CompositeKey> {
+public interface ConfigUpdateRepository extends JpaRepository<DBEntity, DBEntityCompositeKey> {
     List<DBEntity> findByTimestampBetween(Timestamp from, Timestamp to);
 
     List<DBEntity> findByTimestampBetweenAndZones(Timestamp from, Timestamp to, String Zone);
