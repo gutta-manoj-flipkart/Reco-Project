@@ -43,7 +43,7 @@ public class DBEntityController {
         for (Map.Entry<String, String> entry : buckets.entrySet()) {
             metaDataDao.addUpdate(new AppEntity(appData.getAppid(), "bucket", entry.getKey(), entry.getValue()));
         }
-        String url = "http://localhost:8081/test";
+        String url = "http://localhost:8081/restart";
         restTemplate.getForEntity(url, String.class);
         return "Success";
     }

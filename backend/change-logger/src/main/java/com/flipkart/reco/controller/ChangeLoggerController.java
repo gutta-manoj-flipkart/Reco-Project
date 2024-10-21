@@ -7,6 +7,7 @@ import com.flipkart.reco.repository.ConfigUpdateRepository;
 import com.flipkart.reco.repository.MetaDataRepository;
 import com.flipkart.reco.service.MetaDataDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,8 @@ public class ChangeLoggerController {
     @Autowired
     private MetaDataRepository metaDataRepository;
 
-    @GetMapping("/test")
-    public void test() {
+    @GetMapping("/restart")
+    public void restart() {
         MetaDataDao metaDataDao = new MetaDataDao(metaDataRepository);
         List<AppEntity> data = metaDataDao.findByZone("gcp");
         for (AppEntity appEntity : data) {
