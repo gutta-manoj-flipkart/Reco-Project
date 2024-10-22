@@ -7,7 +7,6 @@ import com.flipkart.reco.repository.ConfigUpdateRepository;
 import com.flipkart.reco.repository.MetaDataRepository;
 import com.flipkart.reco.service.MetaDataDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
