@@ -1,4 +1,4 @@
-package com.flipkart.reco.service;
+package com.flipkart.reco.repository;
 
 public interface Storage<K, V> {
     void add(K key, V value);

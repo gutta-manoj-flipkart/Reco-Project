@@ -1,10 +1,10 @@
 package com.flipkart.reco.service;
 
 import com.flipkart.reco.model.AppEntity;
+import com.flipkart.reco.repository.ConfigStorage;
 import com.flipkart.reco.repository.ConfigUpdateRepository;
 import com.flipkart.reco.repository.MetaDataRepository;
 import com.flipkart.reco.resource.ConfigServiceDynamicListener;
-import com.flipkart.reco.util.ConfigListenerStorageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +33,9 @@ public class ConfigChangeLoggerService {
         for (AppEntity appEntity : data) {
             String name = appEntity.getName();
             String zone = appEntity.getZone();
-            if (ConfigListenerStorageUtil.getConfigListenerStorageUtilInstance().get(name) == null) {
+            if (ConfigStorage.getConfigStorageInstance().get(name) == null) {
                 ConfigServiceDynamicListener listener = new ConfigServiceDynamicListener(name, zone, configUpdateRepository);
-                ConfigListenerStorageUtil.getConfigListenerStorageUtilInstance().add(name, listener);
+                ConfigStorage.getConfigStorageInstance().add(name, listener);
             }
         }
     }

@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ConfigStorageService implements Storage<String, ConfigServiceDynamicListener> {
+public class ConfigStorage implements Storage<String, ConfigServiceDynamicListener> {
 
     private final Map<String, ConfigServiceDynamicListener> storage;
     @Getter
-    private static ConfigStorageService configStorageServiceInstance = new ConfigStorageService();
-    public ConfigStorageService() {
+    private static ConfigStorage configStorageInstance = new ConfigStorage();
+    public ConfigStorage() {
         storage = new HashMap<>();
     }
 
