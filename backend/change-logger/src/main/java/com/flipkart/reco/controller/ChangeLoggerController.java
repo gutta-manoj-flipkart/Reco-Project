@@ -1,5 +1,6 @@
 package com.flipkart.reco.controller;
 
+import com.flipkart.reco.service.ConfigChangeLoggerService;
 import com.flipkart.reco.util.ConfigListenerStorageUtil;
 import com.flipkart.reco.resource.ConfigServiceDynamicListener;
 import com.flipkart.reco.model.AppEntity;
@@ -18,21 +19,10 @@ import java.util.List;
 @RequestMapping("/")
 public class ChangeLoggerController {
     @Autowired
-    private ConfigUpdateRepository configUpdateRepository;
-    @Autowired
-    private MetaDataRepository metaDataRepository;
+    private ConfigChangeLoggerService configChangeLoggerService;
 
     @GetMapping("/restart")
     public void restart() {
-        MetaDataDao metaDataDao = new MetaDataDao(metaDataRepository);
-        List<AppEntity> data = metaDataDao.findByZone("gcp");
-        for (AppEntity appEntity : data) {
-            String name = appEntity.getName();
-            String zone = appEntity.getZone();
-            if(ConfigListenerStorageUtil.getConfigListenerStorageUtilInstance().get(name) == null) {
-                ConfigServiceDynamicListener listener = new ConfigServiceDynamicListener(name,zone,configUpdateRepository);
-                ConfigListenerStorageUtil.getConfigListenerStorageUtilInstance().add(name, listener);
-            }
-        }
+        configChangeLoggerService.restartOps();
     }
 }
