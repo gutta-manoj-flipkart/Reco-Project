@@ -1,4 +1,4 @@
-package com.flipkart.reco.util;
+package com.flipkart.reco.repository;
 
 import com.flipkart.reco.resource.ConfigServiceDynamicListener;
 import lombok.Getter;
@@ -6,12 +6,13 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConfigListenerStorageUtil implements Storage<String, ConfigServiceDynamicListener> {
+
+public class ConfigStorageService implements Storage<String, ConfigServiceDynamicListener> {
 
     private final Map<String, ConfigServiceDynamicListener> storage;
     @Getter
-    private static ConfigListenerStorageUtil configListenerStorageUtilInstance = new ConfigListenerStorageUtil();
-    public ConfigListenerStorageUtil() {
+    private static ConfigStorageService configStorageServiceInstance = new ConfigStorageService();
+    public ConfigStorageService() {
         storage = new HashMap<>();
     }
 
